@@ -1,0 +1,10 @@
+button:hover{
+    opacity:0.5;
+}
+
+nav{
+    position:fixed;
+    width:100%;
+    top:0%;
+    left:0%;
+}
