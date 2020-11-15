@@ -39,7 +39,6 @@ class Play extends Component {
                 <button onClick={this.getPlayback}>
                     <span>Play</span>
                 </button>
-
                 <button onClick={this.getPauseback}>
                     <span>Pause</span>
                 </button>

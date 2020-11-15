@@ -68,6 +68,7 @@ class Playlist extends Component {
         return (
             <div className="App">
                 <img src={this.props.playlist.items[0].images[0].url} style={{width:"100px",height:"100px"}} onError={e => e.target.src = defaultImage}/>
+                <br/>
                 <button onClick={
                     this.getPlayback
                 } disabled={this.state.double}>Play Playlist

@@ -77,6 +77,7 @@ class Artist extends Component{
             <div className="App">
 
                 <img src={this.props.artist.items[0].images[0].url} style={{width:'100px',height:'100px'}} onError={e => e.target.src = defaultImage}/>
+                <br/>
                 <button onClick={this.getPlayback} disabled={this.state.double}>Play Artist</button>
 
             </div>

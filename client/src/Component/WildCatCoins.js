@@ -31,7 +31,11 @@ class WildCatCoins extends Component{
             convertToCoin:0,
             multiplier: 10,
             resultCoin: 0,
-        }
+            tracksTotal: 0,
+            tracksCount:0
+            }
+
+
 
         this.updateCoins = this.updateCoins.bind(this);
         this.startUserMS = this.startUserMS.bind(this);
@@ -105,7 +109,52 @@ class WildCatCoins extends Component{
         console.log(this.state.database);
     }
 
+    checkPlaylist(currentPlaying,playlist){
+        this.setState({
+            tracksTotal:playlist.items.track.total/2
+        })
+        if(currentPlaying.href == playlist.items.href && (this.state.timer/240000 == 0)){
+            this.setState({
+                tracksCount: this.state.tracksCount + 1
+            })
+        }
 
+        if(this.state.tracksCount == this.state.timer){
+            console.log("Add value");
+        }
+
+    }
+
+    checkArtist(currentPlaying,artist){
+        this.setState({
+            tracksTotal:10,
+        })
+        if(currentPlaying.href == artist.items.href && (this.state.timer/240000 == 0)){
+            this.setState({
+                tracksCount: this.state.tracksCount + 1
+            })
+        }
+
+        if(this.state.tracksCount == this.state.timer){
+            console.log("Add value");
+        }
+
+    }
+
+    checkAlbum(currentPlaying,album){
+        this.setState({
+            tracksTotal:album.items.total_tracks/2,
+        })
+        if(currentPlaying.href == album.items.href && (this.state.timer/240000 == 0)){
+            this.setState({
+            })
+        }
+
+        if(this.state.tracksCount == this.state.timer){
+            console.log("Add value");
+        }
+
+    }
     updateCoins(){
         let convertToCoin = (this.state.user_ms / 240000).toFixed(0);
         console.log(convertToCoin);
@@ -151,10 +200,11 @@ class WildCatCoins extends Component{
 
     render() {
         return (
-            <div className="App">
-                <i className="fa fa-usd">{this.state.coins}/
-                    {this.state.user_ms}/
-                    {this.props.progress_ms}</i>
+            <div>
+                <h2>WildCat Coins Earning Today:</h2>
+                <h3><i className="fa fa-usd">{this.state.coins}</i></h3>
+                <h4>Time Started:{this.state.user_ms}</h4>
+                <h4>The Progress of the Music Playing: {this.props.progress_ms}</h4>
             </div>
         );
     }

@@ -65,8 +65,9 @@ class Album extends Component{
     }
    render() {
         return (
-            <div className="App">
+            <div>
                 <img src={this.props.album.items[0].images[0].url} style={{width:'100px',height:'100px'}} onError={e => e.target.src = defaultImage}/>
+                <br/>
                 <button onClick={this.getPlayback} disabled={this.state.double}>Play Album</button>
             </div>
         )

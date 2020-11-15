@@ -1,4 +1,5 @@
 import React, {Component, useRef, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.min.css';
 import '../CSS/Header.css';
@@ -6,6 +7,7 @@ import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 
 
 const Header = props => {
+    const history = useHistory();
     const [show, setShow] = useState(false);
     const target = useRef(null);
     const imgCSS ={
@@ -30,8 +32,8 @@ const Header = props => {
     }
 
     const onSubmit = () => {
-        console.log("clicked");
-        window.location.href="http://accounts.spotify.com/logout"
+        window.location.href="http://accounts.spotify.com/logout";
+        history.push(`/login`);
     }
 
     return(
@@ -50,10 +52,10 @@ const Header = props => {
                         Every four minutes you earn 10 coins.
                     </Tooltip>
                 }>
-                <button type="button" className="btn btn-default"
+                <Button className="btn btn-default"
                         style={logOutCSS}>
                     <i className="fa fa-question-circle" ></i>
-                </button>
+                </Button>
             </OverlayTrigger>
 
             <img src={props.user_profile.images[0].url} style={imgCSS}/>
