@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.min.css';
 import '../App'
 import '../CSS/Header.css';
-import defaultImage from '../spotify-logo-png-7053.png'
+import defaultImage from '../spotify-logo-png-7053.png';
 import axios from "axios";
 
 class Playlist extends Component {

@@ -119,7 +119,7 @@ class WildCatCoins extends Component{
             })
         }
 
-        if(this.state.tracksCount == this.state.timer){
+        if(this.state.tracksCount == this.state.tracksTotal){
             console.log("Add value");
         }
 
@@ -135,7 +135,7 @@ class WildCatCoins extends Component{
             })
         }
 
-        if(this.state.tracksCount == this.state.timer){
+        if(this.state.tracksCount == this.state.tracksTotal){
             console.log("Add value");
         }
 
@@ -145,18 +145,20 @@ class WildCatCoins extends Component{
         this.setState({
             tracksTotal:album.items.total_tracks/2,
         })
-        if(currentPlaying.href == album.items.href && (this.state.timer/240000 == 0)){
+        if(currentPlaying.href == album.items.href && (this.state.timer%240000 == 0)){
             this.setState({
+                tracksCount: this.state.tracksCount + 1
             })
         }
 
-        if(this.state.tracksCount == this.state.timer){
+        if(this.state.tracksCount == this.state.tracksTotal){
             console.log("Add value");
+
         }
 
     }
     updateCoins(){
-        let convertToCoin = (this.state.user_ms / 240000).toFixed(0);
+        let convertToCoin = (this.state.user_ms % 240000).toFixed(0);
         console.log(convertToCoin);
         let multiplier = (10 * this.state.database.spotify_multiplier_album * this.state.database.spotify_multiplier_playlist * this.state.database.spotify_multiplier_artist).toFixed(0);
 

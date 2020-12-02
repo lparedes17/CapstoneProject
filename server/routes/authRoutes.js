@@ -68,7 +68,7 @@ router.get('/logged',async(req,res)=>{
         });
 })
 
-router.get("/refreshToken/:refreshKey", async (req,res) => {
+router.get("/refreshToken", async (req,res) => {
     let urlEncodedBody = {
         grant_type: "refresh_token",
         refresh_token: req.params.refreshKey

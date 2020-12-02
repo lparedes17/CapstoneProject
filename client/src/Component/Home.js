@@ -1,7 +1,8 @@
 import React, { Component }  from 'react';
 import logo from "../logo.svg";
 import '../App.css';
-import { authEndpoint, clientId, redirectUri, scopes } from "../config_example";
+import {Buffer} from 'buffer';
+import {authEndpoint, clientId, clientSecret, redirectUri, scopes} from "../config_example";
 import hash from "../hash";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -119,6 +120,7 @@ class Home extends Component{
         this.getListOfAlbum = this.getListOfAlbum.bind(this);
         this.getListOfArtist = this.getListOfArtist.bind(this);
         this.getListOfCategories = this.getListOfCategories.bind(this);
+        this.getListOfPlaylist = this.getListOfPlaylist.bind(this);
         this.getCurrentlyPlaying = this.getCurrentlyPlaying.bind(this);
         this.getUserPhotoID = this.getUserPhotoID.bind(this);
         this.tick = this.tick.bind(this);
@@ -168,11 +170,12 @@ class Home extends Component{
             this.getListOfArtist(this.state.token);
             this.getUserPhotoID(this.state.token);
             this.getCurrentlyPlaying(this.state.token);
+            /*this.testToken(this.state.token);*/
         }
 
-
-
     }
+
+
 
     generateRandomLetter() {
         const alphabet = "abcdefghijklmnopqrstuvwxyz"
@@ -235,6 +238,32 @@ class Home extends Component{
                     album: data.albums,
                 })
                 console.log(this.state.album);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        })
+
+    }
+
+    testToken(token){
+
+        $.ajax({
+            url:'https://accounts.spotify.com/api/token',
+            type: "POST",
+            dataType:"json",
+            beforeSend: (xhr) =>{
+
+                xhr.setRequestHeader("Authorization", "Basic " + (Buffer.from(clientId + ':' + clientSecret).toString('base64')));
+                },
+            data: {
+                grant_type: 'refresh_token',
+                refresh_token: token
+            },
+            success: (data) =>{
+                console.log("test token function");
+                console.log(data);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status);

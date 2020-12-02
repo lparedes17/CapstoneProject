@@ -19,14 +19,14 @@ const Header = props => {
 
     const signOutCSS = {
         position:"absolute",
-        backgroundColor:'white',
         right:"10px",
         width:"40px",
         height:"40px",
     }
 
     const logOutCSS = {
-        backgroundColor:'white',
+        backgroundColor:"white",
+        color:"black",
         width:"40px",
         height:"40px",
     }
@@ -52,7 +52,7 @@ const Header = props => {
                         Every four minutes you earn 10 coins.
                     </Tooltip>
                 }>
-                <Button className="btn btn-default"
+                <Button type="button" className="btn btn-default"
                         style={logOutCSS}>
                     <i className="fa fa-question-circle" ></i>
                 </Button>
