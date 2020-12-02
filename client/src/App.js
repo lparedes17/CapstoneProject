@@ -9,6 +9,7 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Component/Login';
 import Home from './Component/Home';
+import Verify from "./Component/Verify";
 import logo from "./logo.svg";
 
 class App extends Component {
@@ -35,6 +36,7 @@ class App extends Component {
                     <Switch>
                         <Route path={"/login"} component={Login}/>
                         <Route path={"/home"} component={Home}/>
+                        <Route path={"/verify"} component={Verify}/>
                     </Switch>
                     <h1 style={{display:this.state.display}}>Welcome to my demo!</h1>
                     <Link to={"/login"}>

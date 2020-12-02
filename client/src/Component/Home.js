@@ -127,6 +127,7 @@ class Home extends Component{
     }
 
     componentDidMount() {
+
         // Set token
         let _token = hash.access_token;
         if (_token) {

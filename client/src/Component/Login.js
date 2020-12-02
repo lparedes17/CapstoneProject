@@ -7,14 +7,17 @@ import axios from "axios";
 class Login extends Component{
 
     render() {
+        var uri  = "http://localhost:3000/verify";
         return(
+
+
             <div className="App">
 
                 <header className="App-header">
                     <div>
                         <img src={logo} className="App-logo" alt="logo"/><br/>
                         <a className="bg-success text-white btn btn-link"
-                           href={`${authEndpoint}?redirect_uri=${redirectUri}&client_id=${clientId}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`}
+                           href={`${authEndpoint}?redirect_uri=${uri}&client_id=${clientId}&scope=${scopes.join("%20")}&response_type=code&show_dialog=true`}
                         >
                             Login to Spotify
                         </a>
@@ -25,4 +28,4 @@ class Login extends Component{
     }
 }
 
-export default Login
+export default Login;
