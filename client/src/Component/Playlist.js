@@ -15,15 +15,15 @@ class Playlist extends Component {
         }
     }
 
-    getPlayback = () =>{
+    getPlayback = (props) =>{
         fetch('https://api.spotify.com/v1/me/player/play?device_id='+this.props.device_id, {
             method: 'PUT',
             body: JSON.stringify({
                 context_uri: this.props.playlist.items[0].uri,
                 offset:{
-                    position:0,
+                    position:0
                 },
-                position_ms: 0,
+                position_ms:0
 
             }),
             headers: {
@@ -57,7 +57,7 @@ class Playlist extends Component {
             return(1.20);
         }else if(param >=20 && param < 30){
             return(1.30);
-        }else if(param >= 30 && param <40){
+        }else if(param >= 30 && param < 40){
             return(1.40);
         }else if(param >=40 && param < 50){
             return(1.50);

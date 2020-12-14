@@ -14,12 +14,15 @@ import Play from "./Play";
 import Playlist from "./Playlist";
 import Album from "./Album";
 import Artist from "./Artist";
-import ErrorBoundary from "./ErrorBoundary";
 import * as $ from 'jquery';
+
 class Home extends Component{
-    constructor() {
-        super();
+    constructor(props) {
+        super(props)
         this.state = {
+            access_token: this.props.atoken,
+            refresh_token: this.props.refresh_token,
+            token_type: this.props.token_type,
             inDatabase:false,
             database:{
                 spotify_country: '',
@@ -70,8 +73,6 @@ class Home extends Component{
 
 
             },
-            token: null,
-            refresh_token: null,
             device_id:"",
             context_uri:"",
             item: {
@@ -127,14 +128,10 @@ class Home extends Component{
     }
 
     componentDidMount() {
-
         // Set token
-        let _token = hash.access_token;
+        const _token = this.props.atoken;
+        console.log(_token);
         if (_token) {
-            // Set token
-            this.setState({
-                token: _token,
-            });
 
             this.generateRandomGenreSeed(_token);
             this.getListOfCategories(_token);
@@ -164,14 +161,13 @@ class Home extends Component{
     }
 
     tick(){
-        if(this.state.token){
-            this.getListOfCategories(this.state.token);
-            this.getListOfPlaylist(this.state.token);
-            this.getListOfAlbum(this.state.token);
-            this.getListOfArtist(this.state.token);
-            this.getUserPhotoID(this.state.token);
-            this.getCurrentlyPlaying(this.state.token);
-            /*this.testToken(this.state.token);*/
+        if(this.state.access_token){
+            this.getListOfCategories(this.state.access_token);
+            this.getListOfPlaylist(this.state.access_token);
+            this.getListOfAlbum(this.state.access_token);
+            this.getListOfArtist(this.state.access_token);
+            this.getUserPhotoID(this.state.access_token);
+            this.getCurrentlyPlaying(this.state.access_token);
         }
 
     }
@@ -248,31 +244,7 @@ class Home extends Component{
 
     }
 
-    testToken(token){
 
-        $.ajax({
-            url:'https://accounts.spotify.com/api/token',
-            type: "POST",
-            dataType:"json",
-            beforeSend: (xhr) =>{
-
-                xhr.setRequestHeader("Authorization", "Basic " + (Buffer.from(clientId + ':' + clientSecret).toString('base64')));
-                },
-            data: {
-                grant_type: 'refresh_token',
-                refresh_token: token
-            },
-            success: (data) =>{
-                console.log("test token function");
-                console.log(data);
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
-            }
-        })
-
-    }
     getListOfCategories (token) {
 
         $.ajax({
@@ -403,7 +375,7 @@ class Home extends Component{
             <div className="App">
 
                 <header className="App-header">
-                    {this.state.token && !this.state.no_data &&(
+                    {this.state.access_token && !this.state.no_data &&(
                         <div style={{width:"100%"}}>
                             <Header
                                 user_profile={this.state.user_profile}
@@ -427,7 +399,7 @@ class Home extends Component{
                                             <Playlist
                                                 playlist={this.state.playlist}
                                                 device_id={this.state.device_id}
-                                                access_token={this.state.token}
+                                                access_token={this.state.access_token}
                                                 randomCategory={this.state.randomOffSetCategory}
                                                 randomPlaylist={this.state.randomOffsetPlaylist}
                                                 randomArtist={this.state.randomOffsetArtist}
@@ -437,7 +409,7 @@ class Home extends Component{
                                             <Artist
                                                 artist={this.state.artist}
                                                 device_id={this.state.device_id}
-                                                access_token={this.state.token}
+                                                access_token={this.state.access_token}
                                                 randomCategory={this.state.randomOffSetCategory}
                                                 randomPlaylist={this.state.randomOffsetPlaylist}
                                                 randomArtist={this.state.randomOffsetArtist}
@@ -447,7 +419,7 @@ class Home extends Component{
                                             <Album
                                                 album={this.state.album}
                                                 device_id={this.state.device_id}
-                                                access_token={this.state.token}
+                                                access_token={this.state.access_token}
                                                 randomCategory={this.state.randomOffSetCategory}
                                                 randomPlaylist={this.state.randomOffsetPlaylist}
                                                 randomArtist={this.state.randomOffsetArtist}
@@ -470,7 +442,7 @@ class Home extends Component{
                                     <Play
                                         device_id={this.state.device_id}
                                         item ={this.state.item}
-                                        access_token={this.state.token}
+                                        access_token={this.state.access_token}
                                         progress_ms={this.state.progress_ms}
                                         context_uri={this.state.context_uri}
                                     />

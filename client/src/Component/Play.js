@@ -8,7 +8,7 @@ class Play extends Component {
 
     }
 
-    getPauseback = () =>{
+    getPauseback = (props) =>{
         fetch('https://api.spotify.com/v1/me/player/pause?device_id=' + this.props.device_id, {
             method: 'PUT',
             headers: {
@@ -20,7 +20,7 @@ class Play extends Component {
 
 
 
-    getPlayback = () => {
+    getPlayback = (props) => {
         fetch('https://api.spotify.com/v1/me/player/play?device_id=' + this.props.device_id, {
             method: 'PUT',
             body: JSON.stringify({

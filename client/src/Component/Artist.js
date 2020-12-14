@@ -16,7 +16,7 @@ class Artist extends Component{
         }
     }
 
-    getPlayback = () =>{
+    getPlayback = (props) =>{
         fetch('https://api.spotify.com/v1/me/player/play?device_id='+this.props.device_id, {
             method: 'PUT',
             body: JSON.stringify({
@@ -30,6 +30,7 @@ class Artist extends Component{
                 'Authorization': `Bearer ${this.props.access_token}`
             },
         }).then((data) => {
+
             console.log(data);
             this.setState(
                 {
@@ -42,7 +43,7 @@ class Artist extends Component{
                 let id = res.data[0]._id;
                 database.spotify_multiplier_artist = this.assignMultiplier(this.props.randomArtist);
 
-                axios.post('http://localhost:4000/spotifys/update' + id, database).then(res =>{
+                axios.post('http://localhost:4000/spotifys/update/' + id, database).then(res =>{
                     console.log(res.data);
                 })
             })
@@ -54,19 +55,16 @@ class Artist extends Component{
     }
 
     assignMultiplier(param){
-        switch(param){
-            case 0:
-                return(1.10);
-            case 1:
-                return (1.20);
-            case 2:
-                return (1.30);
-            case 3:
-                return(1.40);
-            case 4:
-                return (1.50);
-            case 5:
-                return (1.60);
+        if(param == 1 ){
+            return(1.10);
+        }else if(param == 2){
+            return(1.20);
+        }else if(param == 3){
+            return(1.30);
+        }else if(param == 4){
+            return(1.40);
+        }else if(param == 5){
+            return(1.50);
         }
 
     }
@@ -75,7 +73,7 @@ class Artist extends Component{
     render() {
         return(
             <div className="App">
-
+                <p>{this.props.access_token}</p>
                 <img src={this.props.artist.items[0].images[0].url} style={{width:'100px',height:'100px'}} onError={e => e.target.src = defaultImage}/>
                 <br/>
                 <button onClick={this.getPlayback} disabled={this.state.double}>Play Artist</button>

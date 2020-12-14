@@ -11,8 +11,6 @@ const SpotifyRoutes = require('./controllers/spotifyController')
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(cors());
-const authRoutes = require('./routes/authRoutes')
-server.use("/",authRoutes);
 
 server.listen(PORT, ()=>{
     console.log("Server is running on Port: " + PORT);

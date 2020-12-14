@@ -47,19 +47,18 @@ class Album extends Component{
     }
 
     assignMultiplier(param){
-        switch(param){
-            case 0:
-                return(1.10);
-            case 1:
-                return (1.20);
-            case 2:
-                return (1.30);
-            case 3:
-                return(1.40);
-            case 4:
-                return (1.50);
-            case 5:
-                return (1.60);
+        if(param == 1){
+            return(1.10);
+        }else if(param == 2 ){
+            return(1.20);
+        }else if(param == 3){
+            return(1.30);
+        }else if(param == 4){
+            return(1.40);
+        }else if(param == 5){
+            return(1.50);
+        }else if(param == 6){
+            return (1.60);
         }
 
     }

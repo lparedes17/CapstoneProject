@@ -28,6 +28,9 @@ class WildCatCoins extends Component{
                 spotify_multiplier_artist:1,
                 spotify_multiplier_album:1,
             },
+            c_spotify_multiplier_playlist:1,
+            c_spotify_multiplier_artist:1,
+            c_spotify_multiplier_album:1,
             convertToCoin:0,
             multiplier: 10,
             resultCoin: 0,
@@ -120,7 +123,48 @@ class WildCatCoins extends Component{
         }
 
         if(this.state.tracksCount == this.state.tracksTotal){
-            console.log("Add value");
+            this.setState({
+                database:{
+                    spotify_multiplier_playlist:this.state.database.spotify_multiplier_playlist,
+                    spotify_multiplier_artist:this.state.database.spotify_multiplier_artist,
+                    spotify_multiplier_album:this.state.database.spotify_multiplier_album
+                }
+
+            })
+
+            axios.post('http://localhost:4000/spotifys/update/' + this.state.id, this.state.database)
+                .then(res =>{
+                    console.log(res.data);
+                });
+            axios.get('http://localhost:4000/spotifys/' + this.state.id).then(res =>{
+                console.log(res.data);
+            })
+        }else{
+            this.setState({
+                database:{
+                    spotify_country:  this.state.database.spotify_country,
+                    spotify_name: this.state.database.spotify_name,
+                    spotify_email: this.state.database.spotify_email,
+                    spotify_id: this.state.database.spotify_id,
+                    spotify_ms: this.state.database.spotify_ms,
+                    spotify_coins: this.state.database.spotify_coins,
+                    spotify_playlist: this.state.database.spotify_playlist,
+                    spotify_artist: this.state.database.spotify_artist,
+                    spotify_album: this.state.database.spotify_album,
+                    spotify_multiplier_playlist:1,
+                    spotify_multiplier_artist:1,
+                    spotify_multiplier_album:1
+                }
+
+            })
+
+            axios.post('http://localhost:4000/spotifys/update/' + this.state.id, this.state.database)
+                .then(res =>{
+                    console.log(res.data);
+                });
+            axios.get('http://localhost:4000/spotifys/' + this.state.id).then(res =>{
+                console.log(res.data);
+            })
         }
 
     }
@@ -153,15 +197,13 @@ class WildCatCoins extends Component{
 
         if(this.state.tracksCount == this.state.tracksTotal){
             console.log("Add value");
-
         }
 
     }
     updateCoins(){
-        let convertToCoin = (this.state.user_ms % 240000).toFixed(0);
+        let convertToCoin = (this.state.user_ms / 240000).toFixed(0);
         console.log(convertToCoin);
-        let multiplier = (10 * this.state.database.spotify_multiplier_album * this.state.database.spotify_multiplier_playlist * this.state.database.spotify_multiplier_artist).toFixed(0);
-
+        let multiplier = (this.state.database.spotify_multiplier_album * this.state.database.spotify_multiplier_playlist * this.state.database.spotify_multiplier_artist).toFixed(2);
         console.log(multiplier);
         let resultCoin = convertToCoin * multiplier;
         this.setState({

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
 import {
-
     BrowserRouter as Router,
     Switch,
     Route, Link,Redirect
@@ -35,12 +34,11 @@ class App extends Component {
                 <Router>
                     <Switch>
                         <Route path={"/login"} component={Login}/>
-                        <Route path={"/home"} component={Home}/>
                         <Route path={"/verify"} component={Verify}/>
                     </Switch>
                     <h1 style={{display:this.state.display}}>Welcome to my demo!</h1>
                     <Link to={"/login"}>
-                        <button style={{width:"100%",backgroundColor:"green",display:this.state.display}} onClick={this.onChange}>
+                        <button style={{color:"white",width:"100%",backgroundColor:"green",display:this.state.display}} onClick={this.onChange}>
                             <span>
                             Click in to sync with Spotify
                             </span>
