@@ -201,7 +201,7 @@ class WildCatCoins extends Component{
 
     }
     updateCoins(){
-        let convertToCoin = (this.state.user_ms / 240000).toFixed(0);
+        let convertToCoin = (this.state.user_ms/360000).toFixed(0);
         console.log(convertToCoin);
         let multiplier = (this.state.database.spotify_multiplier_album * this.state.database.spotify_multiplier_playlist * this.state.database.spotify_multiplier_artist).toFixed(2);
         console.log(multiplier);

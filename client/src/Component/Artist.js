@@ -73,7 +73,6 @@ class Artist extends Component{
     render() {
         return(
             <div className="App">
-                <p>{this.props.access_token}</p>
                 <img src={this.props.artist.items[0].images[0].url} style={{width:'100px',height:'100px'}} onError={e => e.target.src = defaultImage}/>
                 <br/>
                 <button onClick={this.getPlayback} disabled={this.state.double}>Play Artist</button>

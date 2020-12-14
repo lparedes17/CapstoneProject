@@ -150,6 +150,7 @@ class Verify extends Component{
             this.getUserPhotoID(_token);
             this.getCurrentlyPlaying(_token);
 
+
         }
 
         this.interval = setInterval(() => this.tick(), 3000)
@@ -259,12 +260,13 @@ class Verify extends Component{
         if(this.state.access_token){
             this.refreshToken();
             this.generateRandomGenreSeed(this.state.access_token);
+            this.getUserPhotoID(this.state.access_token);
             this.getListOfCategories(this.state.access_token);
             this.getListOfPlaylist(this.state.access_token);
             this.getListOfArtist(this.state.access_token);
             this.getListOfAlbum(this.state.access_token);
-            this.getUserPhotoID(this.state.access_token);
             this.getCurrentlyPlaying(this.state.access_token);
+
 
         }
 
@@ -346,7 +348,7 @@ class Verify extends Component{
     getListOfCategories (token) {
 
         $.ajax({
-            url: `https://api.spotify.com/v1/browse/categories?limit=1&offset${this.state.randomOffSetCategory}`,
+            url: `https://api.spotify.com/v1/browse/categories?limit=1&offset=${this.state.randomOffSetCategory}`,
             type: "GET",
             beforeSend: (xhr) => {
                 xhr.setRequestHeader("Authorization", "Bearer " + token);
@@ -357,8 +359,10 @@ class Verify extends Component{
                     category: data.categories,
                     category_id: data.categories.items[0].id,
                 });
-                this.getListOfPlaylist(token)
+
                 console.log(this.state.category);
+                console.log(this.state.category_id);
+                this.getListOfArtist(this.state.token);
             }
         });
 
@@ -372,20 +376,16 @@ class Verify extends Component{
                 xhr.setRequestHeader("Authorization", "Bearer " + token);
             },
             success: (data) => {
-                if (!data) {
-                    this.setState({
-                        no_data: true,
-                    })
-                } else {
+
                     console.log(data.playlists)
                     this.setState({
                         playlist: data.playlists,
-                    });
+                    })
 
 
                     console.log(this.state.playlist);
                 }
-            }
+
         });
 
     }
@@ -416,13 +416,22 @@ class Verify extends Component{
             },
             success: (data) => {
                 if(!this.state.updatedDatabase){
-                    this.state.database.spotify_country = this.state.user_profile.country;
-                    this.state.database.spotify_name = this.state.user_profile.display_name;
-                    this.state.database.spotify_email = this.state.user_profile.email;
-                    this.state.database.spotify_id = this.state.user_profile.id;
-                    this.state.database.spotify_artist = this.state.artist;
-                    this.state.database.spotify_album = this.state.album;
-                    this.state.database.spotify_playlist = this.state.playlist;
+                    this.setState({
+                        database:{
+                            spotify_country: this.state.user_profile.country,
+                            spotify_name: this.state.user_profile.display_name,
+                            spotify_email: this.state.user_profile.email,
+                            spotify_id: this.state.user_profile.id,
+                            spotify_ms: 0,
+                            spotify_coins: 0,
+                            spotify_playlist: this.state.playlist,
+                            spotify_artist: this.state.artist,
+                            spotify_album: this.state.album,
+                            spotify_multiplier_playlist:1,
+                            spotify_multiplier_artist:1,
+                            spotify_multiplier_album:1
+                        }
+                    })
                     console.log(this.state.playlist);
                     console.log(this.state.database);
                     axios.get('http://localhost:4000/spotifys').then(res => {
