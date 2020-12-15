@@ -262,7 +262,7 @@ class Verify extends Component{
             this.generateRandomGenreSeed(this.state.access_token);
             this.getUserPhotoID(this.state.access_token);
             this.getListOfCategories(this.state.access_token);
-            this.getListOfPlaylist(this.state.access_token);
+            //this.getListOfPlaylist(this.state.access_token);
             this.getListOfArtist(this.state.access_token);
             this.getListOfAlbum(this.state.access_token);
             this.getCurrentlyPlaying(this.state.access_token);
@@ -362,7 +362,7 @@ class Verify extends Component{
 
                 console.log(this.state.category);
                 console.log(this.state.category_id);
-                this.getListOfArtist(this.state.token);
+                this.getListOfPlaylist(this.state.access_token);
             }
         });
 

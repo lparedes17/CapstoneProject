@@ -201,7 +201,7 @@ class WildCatCoins extends Component{
 
     }
     updateCoins(){
-        let convertToCoin = (this.state.user_ms/360000).toFixed(0);
+        let convertToCoin = (this.state.user_ms/1000).toFixed(0);
         console.log(convertToCoin);
         let multiplier = (this.state.database.spotify_multiplier_album * this.state.database.spotify_multiplier_playlist * this.state.database.spotify_multiplier_artist).toFixed(2);
         console.log(multiplier);
@@ -209,7 +209,9 @@ class WildCatCoins extends Component{
         this.setState({
             coins:resultCoin
         })
-        if(convertToCoin == 0){
+
+        console.log(this.state.coins);
+        //if(convertToCoin == 0){
             this.setState({
                 database:{
                     spotify_country:  this.state.database.spotify_country,
@@ -228,7 +230,7 @@ class WildCatCoins extends Component{
 
             })
 
-        }
+       // }
 
         console.log(this.state.database);
         axios.post('http://localhost:4000/spotifys/update/' + this.state.id, this.state.database)
